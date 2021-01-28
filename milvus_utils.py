@@ -7,6 +7,7 @@ from torch.autograd import Variable
 import matplotlib.pyplot as plt
 import numpy as np
 from PIL import Image
+from io import BytesIO
 import torch
 
 
@@ -35,32 +36,40 @@ class ClassVector(object):
         return feat_vec
 
 
-feat_vec = ClassVector()
 milvus = Milvus('localhost', '19530', pool_size=10)
-collection_name = 'koren_example'
-images = [
-    Image.open('./images/test1.jpg'),
-    Image.open('./images/test2.jpg'),
-    Image.open('./images/test3.jpg'),
-]
+feat_vec = ClassVector()
 
-vectors = [feat_vec.normalize(i).tolist() for i in images]
 
-milvus.create_collection(
-    param={'collection_name': collection_name, 'dimension': 512})
+def create_collection(collection_name):
+    status, ok = milvus.has_collection(collection_name)
+    if not ok:
+        milvus.create_collection(
+            param={'collection_name': collection_name, 'dimension': 512})
+        return 'Succesfully created'
+    return 'Already exist'
 
-milvus.insert(collection_name=collection_name, records=vectors)
-milvus.flush([collection_name])
 
-status, results = milvus.search(**{
-    'collection_name': collection_name,
-    'query_records': [vectors[0]],
-    'top_k': 10,
-    'params': {
-        "nprobe": 16
-    },
-})
-if status.OK():
-    print(results)
+def drop_collection(collection_name):
+    return milvus.drop_collection(collection_name)
 
-milvus.drop_collection(collection_name)
+
+def insert(collection_name, file):
+    image = [Image.open(BytesIO(file))]
+    vectors = [feat_vec.normalize(i).tolist() for i in image]
+    milvus.insert(collection_name=collection_name, records=vectors)
+    return milvus.flush([collection_name])
+
+
+def search(collection_name, file):
+    image = [Image.open(BytesIO(file))]
+    vectors = [feat_vec.normalize(i).tolist() for i in image]
+    status, results = milvus.search(**{
+        'collection_name': collection_name,
+        'query_records': [vectors[0]],
+        'top_k': 10,
+        'params': {
+            "nprobe": 16
+        },
+    })
+    if status.OK():
+        return str(results)
