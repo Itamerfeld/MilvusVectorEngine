@@ -1,4 +1,4 @@
-# Milvus x Python 
+# Milvus x FastAPI x React 
 *Using milvus engine to perform vector similarity search.*
 
 ### Milvus CPU container
@@ -15,7 +15,22 @@ milvusdb/milvus:0.9.1-cpu-d052920-e04ed5
 
 ### Dependencies
 
-```bash
+```bash 
 pip install pymilvus==0.2.12 fastapi
 conda install --quiet --yes pytorch torchvision -c pytorch
+
+cd client 
+npm install
+```
+
+### Run Server
+
+```bash
+python server.py
+```
+
+### Run Client
+
+```bash
+npm start
 ```

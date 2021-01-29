@@ -9,6 +9,7 @@ import numpy as np
 from PIL import Image
 from io import BytesIO
 import torch
+import json
 
 
 class ClassVector(object):
@@ -61,6 +62,7 @@ def insert(collection_name, file):
 
 
 def search(collection_name, file):
+    results_list = []
     image = [Image.open(BytesIO(file))]
     vectors = [feat_vec.normalize(i).tolist() for i in image]
     status, results = milvus.search(**{
@@ -72,4 +74,7 @@ def search(collection_name, file):
         },
     })
     if status.OK():
-        return str(results)
+        for obj in results:
+            for n in obj:
+                results_list.append({"id": n.id, "distance": n.distance})
+        return results_list
