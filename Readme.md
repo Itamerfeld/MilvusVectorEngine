@@ -16,7 +16,7 @@ milvusdb/milvus:0.9.1-cpu-d052920-e04ed5
 ### Dependencies
 
 ```bash 
-pip install pymilvus==0.2.12 fastapi
+pip install pymilvus==0.4.0 fastapi
 conda install --quiet --yes pytorch torchvision -c pytorch
 
 cd client 

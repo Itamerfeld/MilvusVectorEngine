@@ -4,7 +4,7 @@ import uvicorn
 import milvus_utils
 
 
-app = FastAPI()
+app = FastAPI(title="MVC", version="1.0")
 app.add_middleware(
     CORSMiddleware,
     allow_origins=['*'],
@@ -22,6 +22,11 @@ async def create_collection(collection_name):
 @app.get('/drop_collection/{collection_name}')
 async def drop_collection(collection_name):
     return {"status": milvus_utils.drop_collection(collection_name).message}
+
+
+@app.get('/info_collection/{collection_name}')
+async def info_collection(collection_name):
+    return {"status": milvus_utils.info(collection_name)}
 
 
 @app.post('/insert_collection/')

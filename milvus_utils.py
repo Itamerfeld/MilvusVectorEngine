@@ -1,4 +1,4 @@
-from milvus import Milvus, IndexType, MetricType, Status
+from milvus import Milvus, Status
 import torch.nn as nn
 import torchvision.models as models
 import matplotlib.pyplot as plt
@@ -78,3 +78,7 @@ def search(collection_name, file):
             for n in obj:
                 results_list.append({"id": n.id, "distance": n.distance})
         return results_list
+
+
+def info(collection_name):
+    return milvus.get_collection_stats(collection_name)
