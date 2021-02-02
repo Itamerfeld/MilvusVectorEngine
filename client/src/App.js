@@ -31,7 +31,7 @@ export default class App extends Component {
                                     const data = new FormData()
                                     data.append('collection_name', 'koren')
                                     data.append('file', this.state.selectedFile)
-                                    axios.post( 'http://localhost:5000/'+type, data, {})
+                                    axios.post( 'http://localhost:5000/'+type+'?key=secret', data, {})
                                       .then(res => {
                                         this.setState({ JsonData: res.data , loading: false })
                                       }).catch(error => {
