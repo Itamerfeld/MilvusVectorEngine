@@ -19,6 +19,27 @@ export default class App extends Component {
     JsonData: {'Type':'VectorComparison'},
     image:IMG,
   }
+
+  sendRequest = (file , type) =>{
+    const reader = new FileReader();
+                            reader.readAsDataURL(file.file);
+                            reader.onload = () => {
+                                let image = new Image();
+                                image.src = reader.result;
+                                image.onload = () => {
+                                    this.setState({image:image.src , loading: true , selectedFile: file.file})
+                                    const data = new FormData()
+                                    data.append('collection_name', 'koren')
+                                    data.append('file', this.state.selectedFile)
+                                    axios.post( 'http://localhost:5000/'+type, data, {})
+                                      .then(res => {
+                                        this.setState({ JsonData: res.data , loading: false })
+                                      }).catch(error => {
+                                        this.setState({ JsonData: JSON.parse(error), selectedFile: '', loading: false })
+                                      })
+                                };
+                            };
+  }
  
   render() {
     return (
@@ -30,26 +51,7 @@ export default class App extends Component {
           <FilePond
                         allowMultiple={false}
                         allowReplace={false}
-                        onaddfile={(err, file) => {
-                            const reader = new FileReader();
-                            reader.readAsDataURL(file.file);
-                            reader.onload = () => {
-                                let image = new Image();
-                                image.src = reader.result;
-                                image.onload = () => {
-                                    this.setState({image:image.src , loading: true , selectedFile: file.file})
-                                    const data = new FormData()
-                                    data.append('collection_name', 'koren')
-                                    data.append('file', this.state.selectedFile)
-                                    axios.post( 'http://localhost:5000/insert_collection/', data, {})
-                                      .then(res => {
-                                        this.setState({ JsonData: res.data , loading: false })
-                                      }).catch(error => {
-                                        this.setState({ JsonData: JSON.parse(error), selectedFile: '', loading: false })
-                                      })
-                                };
-                            };
-                        }}
+                        onaddfile={(err, file) => {this.sendRequest(file , 'insert_collection/')}}
                         onremovefile={(err, file) => {
                           this.setState({selectedFile:'' , annotations:[] ,  JsonData:{'Algorithm':'Objects Detection'}, image:IMG , anotations:[]})
                       }}
@@ -58,26 +60,7 @@ export default class App extends Component {
             <FilePond
                         allowMultiple={false}
                         allowReplace={false}
-                        onaddfile={(err, file) => {
-                            const reader = new FileReader();
-                            reader.readAsDataURL(file.file);
-                            reader.onload = () => {
-                                let image = new Image();
-                                image.src = reader.result;
-                                image.onload = () => {
-                                    this.setState({image:image.src , loading: true , selectedFile: file.file})
-                                    const data = new FormData()
-                                    data.append('collection_name', 'koren')
-                                    data.append('file', this.state.selectedFile)
-                                    axios.post( 'http://localhost:5000/search_collection/', data, {})
-                                      .then(res => {
-                                        this.setState({ JsonData: res.data , loading: false })
-                                      }).catch(error => {
-                                        this.setState({ JsonData: JSON.parse(error), selectedFile: '', loading: false })
-                                      })
-                                };
-                            };
-                        }}
+                        onaddfile={(err, file) => {this.sendRequest(file , 'search_collection/')}}
                         onremovefile={(err, file) => {
                           this.setState({selectedFile:'' , annotations:[] ,  JsonData:{'Algorithm':'Objects Detection'}, image:IMG , anotations:[]})
                       }}
