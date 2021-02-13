@@ -3,12 +3,12 @@ from fastapi.middleware.cors import CORSMiddleware
 from fastapi.security.api_key import APIKeyQuery, APIKey
 from starlette.status import HTTP_403_FORBIDDEN
 import uvicorn
-import milvus_utils
-
+from classmilvus import ClassMilvus
 
 app = FastAPI(title="MVC", version="1.0")
 app.add_middleware(CORSMiddleware, allow_origins=[
                    '*'], allow_credentials=True, allow_methods=["*"], allow_headers=["*"])
+milvus_utils = ClassMilvus()
 
 
 async def get_api_key(api_key_query: str = Security(APIKeyQuery(name='key', auto_error=False))):
