@@ -10,6 +10,9 @@ from PIL import Image
 from io import BytesIO
 import torch
 import json
+import config
+
+config = config.get_config()
 
 
 class ClassVector(object):
@@ -39,7 +42,8 @@ class ClassVector(object):
 
 class ClassMilvus(object):
     def __init__(self):
-        self.milvus = Milvus('localhost', '19530', pool_size=10)
+        self.milvus = Milvus(
+            config['MILVUS_HOST'], config['MILVUS_PORT'], pool_size=config['MILVUS_PS'])
         self.feat_vec = ClassVector()
 
     def create_collection(self, collection_name):
