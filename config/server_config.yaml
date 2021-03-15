@@ -1,0 +1,60 @@
+version: 0.4
+
+server_config:
+    address: 0.0.0.0
+    port: 19530
+    deploy_mode: single
+    time_zone: UTC+8
+    web_enable: true
+    web_port: 19121
+
+db_config:
+    backend_url: sqlite://:@:/
+    preload_collection:
+    auto_flush_interval: 1
+
+storage_config:
+    primary_path: /var/lib/milvus
+    secondary_path:
+    file_cleanup_timeout: 10
+metric_config:
+    enable_monitor: false
+    address: 127.0.0.1
+    port: 9091
+
+cache_config:
+    cpu_cache_capacity: 1
+    insert_buffer_size: 1
+    cache_insert_data: false
+
+engine_config:
+    use_blas_threshold: 1100
+    gpu_search_threshold: 1000
+
+gpu_resource_config:
+    enable: false
+    cache_capacity: 1
+    search_resources:
+        - gpu0
+    build_index_resources:
+        - gpu0
+
+tracing_config:
+    json_config_path:
+
+wal_config:
+    enable: true
+    recovery_error_ignore: true
+    buffer_size: 256
+    wal_path: /var/lib/milvus/wal
+
+logs:
+    trace.enable: true
+    debug.enable: true
+    info.enable: true
+    warning.enable: true
+    error.enable: true
+    fatal.enable: true
+    path: /var/lib/milvus/logs
+    max_log_file_size: 1024
+    log_rotate_num: 0

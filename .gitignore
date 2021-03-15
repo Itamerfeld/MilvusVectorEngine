@@ -1,5 +1,6 @@
 /.vscode
 /__pycache__
+/test/__pycache__
 /milvus
 .DS_Store
 /client/node_modules
