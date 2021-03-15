@@ -7,5 +7,6 @@ def get_config():
         "SECRET": "secret",
         "MILVUS_HOST": "localhost",
         "MILVUS_PORT": "19530",
-        "MILVUS_PS": 10
+        "MILVUS_PS": 10,
+        "AUTH_ERROR_STRING": 'Could not validate credentials'
     }

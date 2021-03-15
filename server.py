@@ -18,7 +18,7 @@ async def get_api_key(api_key_query: str = Security(APIKeyQuery(name='key', auto
         return api_key_query
     else:
         raise HTTPException(status_code=HTTP_403_FORBIDDEN,
-                            detail="Could not validate credentials")
+                            detail=config['AUTH_ERROR_STRING'])
 
 
 @app.get('/create_collection/{collection_name}')
