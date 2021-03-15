@@ -1,5 +1,7 @@
-:root {
-  --main1: rgb(224, 224, 224);
+:root{
+  --background:#f8f9fa;
+  --main:rgb(28, 39, 65);
+  --secondery:#d6d6d6;
 }
 
 body {
@@ -10,7 +12,7 @@ body {
 }
 
 *{
-  font-family: 'Courier New', Courier, monospace;
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif
 }
 
 code {
@@ -18,33 +20,69 @@ code {
     monospace;
 }
 
-.main-flex {
+.main{
   display: flex;
-  justify-content: flex-start;
-}
-
-
-.Particles {
-  position: fixed;
-  height: 100vh;
   width: 100%;
-  opacity: 0.3;
-  z-index: -2;
 }
 
-.form-main {
-  animation: scale-up-hor-center 0.5s cubic-bezier(0.39, 0.575, 0.565, 1) both;
-  color: white;
-  width: 170px;
-  padding: 0px;
-  margin: 40px;
-  border-radius: 10px;
+.main-form{
+  width: 200px;
+  padding: 2em;
+}
+
+.data-main{
+  width: 100%;
 }
 
 .annotation-main{
-  padding: 50px;
-  margin: 50px auto;
+  width: 100%;
+  padding: 2em;
 }
+
+.nav-main{
+  height: 100vh;
+  width: 200px;
+  background: #fff;
+  box-shadow: 0px 0px 5px 1px rgba(0, 0, 0, 0.062);
+}
+
+.nav-header{
+  width: 100%;
+  display:flex;
+  padding: 5px 0;
+  justify-content: flex-start;
+  margin-bottom: 20px;
+  box-shadow: 0px 0px 5px 1px rgba(0, 0, 0, 0.062);
+}
+
+.nav-header p{
+  margin-left: 15px;
+  font-size: 17px;
+  color: var(--main);
+  letter-spacing: 2px;
+  font-weight: 800;
+}
+
+.nav-item{
+  display: flex;
+  justify-content: flex-start;
+  cursor: pointer;
+  color: var(--main);
+  text-decoration: none;
+  margin: 10px;
+}
+
+.nav-item p{
+  margin: 5px;
+}
+
+.nav-item-active{
+  transition: 1s;
+  color: #3b66b6;
+  letter-spacing: 3px;
+}
+
+
 
 
 /*
