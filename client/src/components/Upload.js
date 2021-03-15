@@ -13,7 +13,7 @@ export default function Upload() {
 
     const [image ,setImage] = useState('')
     const [annotations , setAnnotations] = useState([])
-    const [jsonData , setJsonData] = useState({'MVC':'MVC'})
+    const [jsonData , setJsonData] = useState({'MVC':'Upload File'})
     const [loading , setLoading] = useState(false)
 
     const sendRequest = (file , type) =>{

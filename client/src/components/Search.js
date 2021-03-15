@@ -13,7 +13,7 @@ export default function Search() {
 
     const [image ,setImage] = useState('')
     const [annotations , setAnnotations] = useState([])
-    const [jsonData , setJsonData] = useState({'MVC':'MVC'})
+    const [jsonData , setJsonData] = useState({'MVC':'Search File'})
     const [loading , setLoading] = useState(false)
 
     const sendRequest = (file , type) =>{
