@@ -1,4 +1,7 @@
-# Milvus x FastAPI x React 
+# MilvusVectorEngine
+
+<img src="./sample/example.png" height="300">
+
 *Using milvus engine to perform vector similarity search.*
 
 ### Milvus CPU container
