@@ -1,15 +1,15 @@
 from nose.tools import assert_true
 import requests
-from PIL import Image
 
-
-#  CD root Folder & Run "nosetests --verbosity=2 main"
 
 def config():
     return{
         "API_CREATE": "http://localhost:5000/create_collection/",
         "API_INFO": "http://localhost:5000/info_collection/",
         "API_DROP": "http://localhost:5000/drop_collection/",
+        "API_INSERT": "http://localhost:5000/insert_collection/",
+        "API_SEARCH": "http://localhost:5000/search_collection/",
+        "FILE_PATH": "./test.jpeg",
         "API_KEY": "?key=secret"
     }
 
@@ -27,6 +27,24 @@ def test_create():
 def test_info():
     response = requests.get(
         config['API_INFO']+collection_name + config['API_KEY'])
+    assert_true(response.ok)
+
+
+def test_insert():
+    url = config['API_INSERT'] + config['API_KEY']
+    payload = {'collection_name': collection_name}
+    files = [('file', open(config['FILE_PATH'], 'rb'))]
+    response = requests.request(
+        "POST", url, headers={}, data=payload, files=files)
+    assert_true(response.ok)
+
+
+def test_search():
+    url = config['API_SEARCH'] + config['API_KEY']
+    payload = {'collection_name': collection_name}
+    files = [('file', open(config['FILE_PATH'], 'rb'))]
+    response = requests.request(
+        "POST", url, headers={}, data=payload, files=files)
     assert_true(response.ok)
 
 

@@ -37,3 +37,10 @@ python server.py
 ```bash
 npm start
 ```
+
+### Run Test
+
+```bash
+cd test
+nosetests --verbosity=2 test
+```
