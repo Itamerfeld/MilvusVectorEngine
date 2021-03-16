@@ -23,26 +23,31 @@ async def get_api_key(api_key_query: str = Security(APIKeyQuery(name='key', auto
 
 @app.get('/create_collection/{collection_name}')
 async def create_collection(collection_name, api_key: APIKey = Depends(get_api_key)):
-    return {"status": milvus_utils.create_collection(collection_name)}
+    milvus_result = milvus_utils.create_collection(collection_name)
+    return {"status": milvus_result}
 
 
 @app.get('/drop_collection/{collection_name}')
 async def drop_collection(collection_name, api_key: APIKey = Depends(get_api_key)):
-    return {"status": milvus_utils.drop_collection(collection_name).message}
+    milvus_result = milvus_utils.drop_collection(collection_name).message
+    return {"status": milvus_result}
 
 
-@app.get('/info_collection/{collection_name}')
+@ app.get('/info_collection/{collection_name}')
 async def info_collection(collection_name, api_key: APIKey = Depends(get_api_key)):
-    return {"status": milvus_utils.info(collection_name)}
+    milvus_result = milvus_utils.info(collection_name)
+    return {"status": milvus_result}
 
 
-@app.post('/insert_collection/')
+@ app.post('/insert_collection/')
 async def insert_collection(file: bytes = File(...), collection_name: str = Form(...), api_key: APIKey = Depends(get_api_key)):
-    return {"status": milvus_utils.insert(collection_name, file).message}
+    milvus_result = milvus_utils.insert(collection_name, file).message
+    return {"status": milvus_result}
 
 
-@app.post('/search_collection/')
+@ app.post('/search_collection/')
 async def search_collection(file: bytes = File(...), collection_name: str = Form(...), api_key: APIKey = Depends(get_api_key)):
-    return {"result": milvus_utils.search(collection_name, file)}
+    milvus_result = milvus_utils.search(collection_name, file)
+    return {"result": milvus_result}
 
 uvicorn.run(app, host=config['APP_HOST'], port=config['APP_PORT'])

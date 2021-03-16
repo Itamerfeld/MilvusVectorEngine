@@ -19,14 +19,14 @@ config = config()
 
 
 def test_create():
-    response = requests.get(
-        config['API_CREATE']+collection_name + config['API_KEY'])
+    url = config['API_CREATE']+collection_name + config['API_KEY']
+    response = requests.get(url)
     assert_true(response.ok)
 
 
 def test_info():
-    response = requests.get(
-        config['API_INFO']+collection_name + config['API_KEY'])
+    url = config['API_INFO']+collection_name + config['API_KEY']
+    response = requests.get(url)
     assert_true(response.ok)
 
 
@@ -49,6 +49,6 @@ def test_search():
 
 
 def test_drop():
-    response = requests.get(
-        config['API_DROP']+collection_name + config['API_KEY'])
+    url = config['API_DROP']+collection_name + config['API_KEY']
+    response = requests.get(url)
     assert_true(response.ok)
